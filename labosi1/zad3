@@ -1,0 +1,29 @@
+//// 3. Zadatak ////
+
+numbers = []
+
+while True:
+    try:
+        user_input = input("Unes broj ili 'Done' za kraj: ")
+        if user_input == 'Done':
+            break
+        number = float(user_input)
+        numbers.append(number)
+    except ValueError:
+        print("Unesi broj ili 'Done' za kraj.")
+
+if len(numbers) > 0:
+    avg = sum(numbers) / len(numbers)
+
+    min_num = min(numbers)
+    max_num = max(numbers)
+
+    numbers.sort()
+
+    print("Unijeli ste", len(numbers), "brojeva.")
+    print("Srednja vrijednost je:", avg)
+    print("Minimalna vrijednost je:", min_num)
+    print("Maksimalna vrijednost je:", max_num)
+    print("Sortirana lista brojeva:", numbers)
+else:
+    print("Niste unijeli nijedan broj.")
