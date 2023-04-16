@@ -1,0 +1,12 @@
+//// 1. Zadatak ////
+
+def total_euro(radni_sati, euro_po_satu):
+    return radni_sati * euro_po_satu
+
+if __name__ == "__main__":
+    radni_sati = float(input("Unesite broj radnih sati: "))
+    euro_po_satu = float(input("Unesite iznos plaćen po satu: "))
+
+    ukupno = total_euro(radni_sati, euro_po_satu)
+
+    print("Ukupno zarađeno: ", ukupno, " eura")
