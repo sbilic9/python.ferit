@@ -1,0 +1,47 @@
+----2. Zadatak----
+
+Napišite programski kod koji će iscrtati sljedeće slike za mtcars skup podataka:
+1. Pomoću barplot-a prikažite na istoj slici potrošnju automobila s 4, 6 i 8 cilindara.
+2. Pomoću boxplot-a prikažite na istoj slici distribuciju težine automobila s 4, 6 i 8 cilindara.
+3. Pomoću odgovarajućeg grafa pokušajte odgovoriti na pitanje imaju li automobili s ručnim mjenjačem veću
+potrošnju od automobila s automatskim mjenjačem?
+4. Prikažite na istoj slici odnos ubrzanja i snage automobila za automobile s ručnim odnosno automatskim
+mjenjačem
+
+----1.----
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+mtcars = pd.read_csv('mtcars.csv') # Učitavanje podataka
+
+mtcars_cyl = mtcars.loc[mtcars['cyl'].isin([4, 6, 8])]
+
+mpg_mean = mtcars_cyl.groupby('cyl')['mpg'].mean()
+
+plt.bar(mpg_mean.index, mpg_mean.values)
+
+plt.xlabel('BROJ CYL')
+plt.ylabel('POTROŠNJA GORIVA')
+plt.title('POTROŠNJA GORIVA PO BROJU CILINDARA')
+
+plt.show()
+
+----2.----
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+mtcars = pd.read_csv('mtcars.csv')
+
+mtcars_cyl = mtcars.loc[mtcars['cyl'].isin([4, 6, 8])]
+
+plt.boxplot([mtcars_cyl.loc[mtcars_cyl['cyl'] == 4]['wt'],
+             mtcars_cyl.loc[mtcars_cyl['cyl'] == 6]['wt'],
+             mtcars_cyl.loc[mtcars_cyl['cyl'] == 8]['wt']])
+
+plt.xticks([1, 2, 3], ['4 CYL', '6 CYL', '8 CYL'])
+
+plt.title('DISTRIBUCIJA TEŽINE AUTOMOBILA PO BROJU CILINDARA')
+
+plt.show()
