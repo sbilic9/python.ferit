@@ -1,0 +1,43 @@
+----1. Zadatak----
+
+Za mtcars skup podataka napišite programski kod koji će odgovoriti na sljedeća pitanja:
+1. Kojih 5 automobila ima najveću potrošnju? (koristite funkciju sort)
+2. Koja tri automobila s 8 cilindara imaju najmanju potrošnju?
+3. Kolika je srednja potrošnja automobila sa 6 cilindara?
+4. Kolika je srednja potrošnja automobila s 4 cilindra mase između 2000 i 2200 lbs?
+5. Koliko je automobila s ručnim, a koliko s automatskim mjenjačem u ovom skupu podataka?
+6. Koliko je automobila s automatskim mjenjačem i snagom preko 100 konjskih snaga?
+7. Kolika je masa svakog automobila u kilogramima?
+
+
+import pandas as pd
+
+mtcars = pd.read_csv("mtcars.csv")
+
+
+print("1. Najveća potrošnja:")
+print(mtcars.sort_values("mpg", ascending=False).head())
+
+print("2. Najmanja potrošnja vozila s 8 cilindara:")
+print(mtcars[mtcars["cyl"]==8].sort_values("mpg").head(3))
+
+
+mean_mpg_6cyl = mtcars[mtcars["cyl"]==6]["mpg"].mean()
+print(f"3. Srednja potrošnja vozila sa 6 cilindara: {mean_mpg_6cyl:.2f}")
+
+
+mean_mpg_4cyl_2000_2200lbs = mtcars[(mtcars["cyl"]==4) & (mtcars["wt"]>=2.0) & (mtcars["wt"]<=2.2)]["mpg"].mean()
+print(f"4. Srednja potrošnja vozila sa 4 cilindra i masom između 2000 i 2200 lbs: {mean_mpg_4cyl_2000_2200lbs:.2f}")
+
+
+n_manual = mtcars[mtcars["am"]==0].shape[0]
+n_automatic = mtcars[mtcars["am"]==1].shape[0]
+print(f"5. Broj vozila sa ručnim mjenjačem: {n_manual}, broj vozila sa automatskim mjenjačem: {n_automatic}")
+
+
+n_automatic_over_100hp = mtcars[(mtcars["am"]==1) & (mtcars["hp"]>100)].shape[0]
+print(f"6. Broj vozila sa automatskim mjenjačem i snagom preko 100 konjskih snaga: {n_automatic_over_100hp}")
+
+mtcars["mass_kg"] = mtcars["wt"] * 0.453592
+print("7. Masa vozila:")
+print(mtcars["mass_kg"])
