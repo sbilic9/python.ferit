@@ -1,0 +1,38 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.image as image 
+from sklearn.cluster import KMeans
+
+# ucitaj sliku
+img = image.imread("example_grayscale.png") 
+
+# prikazi sliku
+plt.figure()
+plt.title('Original image')
+plt.imshow(img, cmap='gray')
+plt.show() 
+
+
+# TODO: predstavi sliku kao vektor
+
+h, w = img.shape
+img_vector = img.reshape(h * w, 1)
+
+# TODO: primijeni K-means na vektor (sliku)
+
+num_clusters = 4  # Broj klastera
+kmeans = KMeans(n_clusters=num_clusters, random_state=0)
+kmeans.fit(img_vector)
+
+
+# TODO: zamijeni svjetlinu svakog piksela s najblizim centrom
+
+compressed_img_vector = kmeans.cluster_centers_[kmeans.labels_]
+compressed_img = compressed_img_vector.reshape(h, w)
+
+# TODO: prikazi dobivenu aproksimaciju (sliku)
+
+plt.figure()
+plt.title('Kvantizirana slika sa {} klastera'.format(num_clusters))
+plt.imshow(compressed_img, cmap='gray')
+plt.show()
